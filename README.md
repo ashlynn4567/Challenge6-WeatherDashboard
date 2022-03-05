@@ -1,6 +1,6 @@
 # Weather Dashboard
 
-## What mysteries does the atmosphere hold?
+### What mysteries does the atmosphere hold?
 
 This is my sixth challenge assignment for the University of Oregon Coding Bootcamp 2022. The challenge is to create an application using server-side APIs that allows a user to search for live weather updates for multiple cities.
 
@@ -27,7 +27,7 @@ This is how the main page appears to users. The page is responsive, adapting to 
 
 <p align="center"><img src=""/></p>
 
-## No more suprises
+## Deployed Site
 
 <a href="">Click here to track the weather!<a>
 
