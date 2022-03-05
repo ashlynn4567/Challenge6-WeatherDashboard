@@ -1,4 +1,4 @@
-# Challenge6-WeatherDashboard
+# Weather Dashboard
 
 ## What mysteries does the atmosphere hold?
 
