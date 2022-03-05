@@ -39,6 +39,7 @@ In the future, I would like to add the following improvements:
 
 I'm a big believer in always refactoring code to improve it's functionality. If you would like to suggest your own improvements, you can reach me at the following links.
 
+- <a href="mailto:ashlynn4567@gmail.com">Email<a>
 - <a href="https://github.com/ashlynn4567">GitHub<a>
 - <a href="www.linkedin.com/in/Ashley-Lynn-Smith">LinkedIn<a>
 
