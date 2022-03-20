@@ -11,7 +11,6 @@
 
 // STILL NEED:
 // STYLING WITH BOOTSTRAP
-// ICON REPRESENTATION OF WEATHER CONDITION
 // LOCAL STORAGE
 // CATCH AND ERROR HANDLING
 
@@ -146,7 +145,7 @@ var displayFiveDayWeather = function(data) {
     for (i = 0; i < (data.daily.length - 3); i++) {
         console.log(data.daily[i]);
         var dayParentEl = document.querySelector(".day-" + i);
-        
+
         //date
             // collect date data from api
             var unixDate = data.daily[i].dt;
@@ -158,6 +157,23 @@ var displayFiveDayWeather = function(data) {
             fiveDayDateEl.innerHTML = "Date: " + forecastDate;
             // append date to page
             dayParentEl.appendChild(fiveDayDateEl);
+
+        // icon
+            // create new element
+            var fiveDayIconEl = document.createElement("div");
+            var fiveDayIconImg = document.createElement("img");
+            fiveDayIconEl.setAttribute("class", "five-day-icon");
+            fiveDayIconImg.setAttribute("src", `http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
+            fiveDayIconEl.appendChild(fiveDayIconImg);
+            dayParentEl.appendChild(fiveDayIconEl);
+
+        // description
+            // create a new element
+            var fiveDayDescription = document.createElement("p");
+            fiveDayDescription.setAttribute("class", "five-day-description");
+            fiveDayDescription.innerHTML = "Description: " + data.daily[i].weather[0].description;
+            // append description to page
+            dayParentEl.appendChild(fiveDayDescription);
 
         // high temp
             // create new element
