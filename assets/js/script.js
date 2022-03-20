@@ -12,6 +12,9 @@
 // variables 
 var cityFormEl = document.getElementById("city-form");
 var cityInputEl = document.getElementById("city-input");
+var citySearchTerm = document.querySelectorAll(".city-name");
+var currentDateEl = document.querySelector(".date");
+
 // ---------------------------------------------------------------------------END VARIABLES //
 
 
@@ -28,6 +31,9 @@ var formSubmitHandler = function(event) {
     // if user entered a city name
     if (cityName) {
         fetchCityCoordinates(cityName);
+        // show city the user searched for in headers
+        displayCityName(cityName);
+
         // reset form to blank input box
         cityInputEl.value = ""
     
@@ -52,6 +58,13 @@ var fetchCityCoordinates = function(city) {
     fetch(geoApiUrl).then(function(response) {
         response.json().then(function(data) {
             console.log(data);
+
+            var lat = data[0].lat
+            var lon = data[0].lon
+
+            fetchWeatherData(lat, lon);
+        }).catch(function(err) {
+            console.log(err);
         });
     });
 };
@@ -60,23 +73,48 @@ var fetchCityCoordinates = function(city) {
 // fetch weather data
 var fetchWeatherData = function(latitude, longitude) {
     var weatherApiUrl = 
-        "https://api.openweathermap.org/data/2.5/weather?" 
-        + latitude + "&lon=" + longitude + 
+        "https://api.openweathermap.org/data/2.5/onecall?lat=" 
+        + latitude + "&lon=" + longitude +
         "&appid=758dc488dbd90e57e26ad181eba5db49";
    
     fetch(weatherApiUrl).then(function(response2) {
         response2.json().then(function(data) {
             console.log(data);
+
+            displayCurrentWeather(data);
         });
     });
 };
 // --------------------------------------------------------------------------END FETCH DATA //
 
 
+var displayCityName = function(cityName) {
+    citySearchTerm[0].innerText = cityName;
+    citySearchTerm[1].innerText = cityName;
+};
+
+var displayCurrentWeather = function(data) {
+    // date
+    var unixDate = data.current.dt
+    // converting unix to millisecs
+    var date = new Date(unixDate * 1000);
+
+    console.log(date);
+
+    currentDateEl.innerText = date;
+
+    // temperature
+    // humidity
+    // wind-speed
+    // uv-index
+};
+
+var displayFiveDayWeather = function() {
+    
+};
+
+
 
 // ?. FUNCTION CALLS AND EVENT LISTENERS--------------------------------------------------- //
 cityFormEl.addEventListener("submit", formSubmitHandler);
-
-fetchCityCoordinates();
-fetchWeatherData();
 // --------------------------------------------------END FUNCTION CALLS AND EVENT LISTENERS //
