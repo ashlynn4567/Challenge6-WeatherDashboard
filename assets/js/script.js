@@ -20,12 +20,6 @@
 var cityFormEl = document.getElementById("city-form");
 var cityInputEl = document.getElementById("city-input");
 var citySearchTerm = document.querySelectorAll(".city-name");
-var currentDateEl = document.querySelector(".current-date");
-var currentTempEl = document.querySelector(".current-temperature");
-var currentFeelsLikeEl = document.querySelector(".current-rel-temp");
-var currentHumidityEl = document.querySelector(".current-humidity");
-var currentWindEl = document.querySelector(".current-wind");
-var currentUVEl = document.querySelector(".current-uv-index");
 // ---------------------------------------------------------------------------END VARIABLES //
 
 
@@ -111,33 +105,76 @@ var displayCityName = function(cityName) {
 
 
 var displayCurrentWeather = function(data) {
-    // collect date data from api
-    var unixDate = data.current.dt;
-    // converting unix to millisecs and formatting date
-    var currentDate = (new Date(unixDate * 1000)).toDateString();
-    // append date to page
-    currentDateEl.innerText = currentDate;
-
-    // append temperature to page
-    currentTempEl.innerText = data.current.temp + " °F";
-
-    // append relative temperature to page
-    currentFeelsLikeEl.innerText = data.current.feels_like + " °F";
+    currentForecastParent = document.getElementById("current-forecast");
     
-    // append humidity to page
-    currentHumidityEl.innerText = data.current.humidity + " %";
+    //date
+        // collect date data from api
+        var unixDate = data.current.dt;
+        // converting unix to millisecs and formatting date
+        var formattedDate = (new Date(unixDate * 1000)).toDateString();
+        //create new element
+        var currentDateEl = document.createElement("p");
+        currentDateEl.setAttribute("class", "current-date");
+        currentDateEl.innerHTML = "Date: " + formattedDate;
+        currentForecastParent.appendChild(currentDateEl);
 
-    // collect wind direction from api
-    var windDegrees = data.current.wind_deg;
-    // convert wind direction degrees to cardinal directions
-    var val = Math.floor((windDegrees / 22.5) + 0.5);
-    var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-    var currentWindDegrees = arr[(val % 16)];
-    // append wind speed and wind direction to page
-    currentWindEl.innerText = data.current.wind_speed + " mph " + currentWindDegrees;
+    // icon
+            // create new element
+            var currentIconEl = document.createElement("div");
+            var currentIconImg = document.createElement("img");
+            currentIconEl.setAttribute("class", "current-icon");
+            currentIconImg.setAttribute("src", `http://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
+            currentIconEl.appendChild(currentIconImg);
+            currentForecastParent.appendChild(currentIconEl);
 
-    // append uv-index to page
-    currentUVEl.innerText = data.current.uvi;
+        // description
+            // create a new element
+            var currentDescription = document.createElement("p");
+            currentDescription.setAttribute("class", "current-description");
+            currentDescription.innerHTML = "Description: " + data.current.weather[0].description;
+            // append description to page
+            currentForecastParent.appendChild(currentDescription);
+
+    // temp
+        // create new element
+        var currentTempEl = document.createElement("p");
+        currentTempEl.setAttribute("class", "current-temp");
+        currentTempEl.innerHTML = "Temperature: " + data.current.temp + " °F";
+        //append temp to page
+        currentForecastParent.appendChild(currentTempEl);
+
+    // relative temp
+        // create new element
+        var currentFeelsLikeEl = document.createElement("p");
+        currentFeelsLikeEl.setAttribute("class", "current-rel-temp");
+        currentFeelsLikeEl.innerHTML = "Temperature: " + data.current.feels_like + " °F";
+        //append temp to page
+        currentForecastParent.appendChild(currentFeelsLikeEl);
+    
+    // humidity
+        var currentHumidityEl = document.createElement("p");
+        currentHumidityEl.setAttribute("class", "current-humidity");
+        currentHumidityEl.innerHTML = "Humidity: " + data.current.humidity + " %";
+        // append humidity to page
+        currentForecastParent.appendChild(currentHumidityEl);
+
+    // wind direction and speed
+        var currentWindEl = document.createElement("p");
+        currentWindEl.setAttribute("class", "current-wind");
+        // collect wind direction from api
+        var windDegrees = data.current.wind_deg;
+        // convert wind direction degrees to cardinal directions
+        var val = Math.floor((windDegrees / 22.5) + 0.5);
+        var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+        var currentWindDegrees = arr[(val % 16)];
+        currentWindEl.innerText = "Wind: " + data.current.wind_speed + " mph " + currentWindDegrees;
+        currentForecastParent.appendChild(currentWindEl);
+
+    // uv index
+        var currentUVEl = document.createElement("p");
+        currentUVEl.setAttribute("class", "current-uv");
+        currentUVEl.innerHTML = "UV Index: " + data.current.uvi;
+        currentForecastParent.appendChild(currentUVEl);
 };
 
 
@@ -194,12 +231,13 @@ var displayFiveDayWeather = function(data) {
         // humidity
             var fiveDayHumidityEl = document.createElement("p");
             fiveDayHumidityEl.setAttribute("class", "five-day-humidity");
-            fiveDayHumidityEl.innerHTML = "Humidity: " + data.daily[i].humidity;
+            fiveDayHumidityEl.innerHTML = "Humidity: " + data.daily[i].humidity + " %";
             // append humidity to page
             dayParentEl.appendChild(fiveDayHumidityEl);
 
         // wind speed and direction
             var fiveDayWindEl = document.createElement("p");
+            fiveDayWindEl.setAttribute("class", "five-day-wind");
             // collect wind direction from api
             var windDegrees = data.daily[i].wind_deg;
             // convert wind direction degrees to cardinal directions
