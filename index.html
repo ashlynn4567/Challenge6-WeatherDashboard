@@ -13,74 +13,84 @@
       crossorigin="anonymous"
     />
     <!-- My CSS -->
-    <link src="./assets/css/style.css" rel="stylesheet">
+    <link src="./assets/css/style.css" rel="stylesheet" />
   </head>
   <body>
     <!-- Header -->
     <header>
       <h1>Weather Dashboard</h1>
     </header>
-    
+
     <main>
       <!-- Form -->
       <section>
         <div>
-          <h2>Search for a City</h2>
-          <form>
-            <label></label>
-            <button></button>
+          <h3>Search for a City</h3>
+          <form id="city-form">
+            <label for="city-input">City Name:</label>
+            <input id="city-input" type="text" name="city-input" />
+            <button type="submit">Submit</button>
           </form>
-          <ol></ol>
+          <ol id="recent-searches"></ol>
         </div>
       </section>
 
       <!-- Current Weather -->
       <section>
         <div>
-          <h2></h2>
-          <p><span></span></p>
-          <p><span></span></p>
-          <p><span></span></p>
-          <p><span></span></p>
+          <h2>
+            Displaying current weather conditions for:
+            <span class="city-name"></span>
+          </h2>
+          <p class="date"><span></span></p>
+          <p class="temperature"><span></span></p>
+          <p class="humidity"><span></span></p>
+          <p class="wind-speed"><span></span></p>
+          <p class="uv-index"><span></span></p>
         </div>
       </section>
 
       <!-- 5 Day Forecast -->
       <section>
         <div>
-          <h2></h2>
+          <h2>5 Day Forecast for <span class="city-name"></span>:</h2>
           <div>
             <div>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
+              <p class="date"><span></span></p>
+              <p class="temperature"><span></span></p>
+              <p class="humidity"><span></span></p>
+              <p class="wind-speed"><span></span></p>
+              <p class="uv-index"><span></span></p>
             </div>
             <div>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
+              <p class="date"><span></span></p>
+              <p class="temperature"><span></span></p>
+              <p class="humidity"><span></span></p>
+              <p class="wind-speed"><span></span></p>
+              <p class="uv-index"><span></span></p>
             </div>
             <div>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
+              <p class="date"><span></span></p>
+              <p class="temperature"><span></span></p>
+              <p class="humidity"><span></span></p>
+              <p class="wind-speed"><span></span></p>
+              <p class="uv-index"><span></span></p>
             </div>
             <div>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
+              <p class="date"><span></span></p>
+              <p class="temperature"><span></span></p>
+              <p class="humidity"><span></span></p>
+              <p class="wind-speed"><span></span></p>
+              <p class="uv-index"><span></span></p>
             </div>
             <div>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
-              <p><span></span></p>
+              <p class="date"><span></span></p>
+              <p class="temperature"><span></span></p>
+              <p class="humidity"><span></span></p>
+              <p class="wind-speed"><span></span></p>
+              <p class="uv-index"><span></span></p>
             </div>
-          </div>  
+          </div>
         </div>
       </section>
     </main>
@@ -90,7 +100,7 @@
       <h3>Weather Dashboard</h3>
       <p>
         Brought to you by the University of Oregon Coding Bootcamp.
-        <br>
+        <br />
         Made by Ashley Smith
       </p>
     </footer>
