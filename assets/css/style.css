@@ -1,0 +1,11 @@
+.background {
+  background-image: url("../images/bg-image.jpg");
+  background-size: cover;
+  font-family: "droid-serif", serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Montserrat", sans-serif;
+}

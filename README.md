@@ -29,7 +29,7 @@ This is how the main page appears to users. The page is responsive, adapting to 
 
 ## Deployed Site
 
-<a href="">Click here to track the weather!<a>
+<a href="https://ashlynn4567.github.io/Challenge6-WeatherDashboard/">Click here to track the weather!<a>
 
 ## Suggestion Box
 
@@ -44,5 +44,7 @@ I'm a big believer in always refactoring code to improve it's functionality. If 
 - <a href="https://www.linkedin.com/in/ashley-lynn-smith/">LinkedIn<a>
 
 ## Credits
+
+Background image from [Wolfgang Hasselmann](https://unsplash.com/photos/bR\_-gllg7Bs).
 
 This project was built with the help of the University of Oregon's Coding Boot Camp.

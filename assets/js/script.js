@@ -180,7 +180,6 @@ var displayCurrentWeather = function(data) {
 
 var displayFiveDayWeather = function(data) {
     for (i = 0; i < (data.daily.length - 3); i++) {
-        console.log(data.daily[i]);
         var dayParentEl = document.querySelector(".day-" + i);
 
         //date
