@@ -11,7 +11,6 @@
 
 // STILL NEED:
 // LOCAL STORAGE STORE MORE THAN ONE HISTORY ITEM
-// CATCH AND ERROR HANDLING SERVER SIDE
 // USE APP MORE THAN 1X
 
 
@@ -63,16 +62,22 @@ var fetchCityCoordinates = function(city) {
         "&appid=758dc488dbd90e57e26ad181eba5db49";
     
     fetch(geoApiUrl).then(function(response) {
-        response.json().then(function(data) {
-            console.log(data);
+        if (response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
 
-            var lat = data[0].lat
-            var lon = data[0].lon
+                var lat = data[0].lat
+                var lon = data[0].lon
 
-            fetchWeatherData(lat, lon);
-        }).catch(function(err) {
-            console.log(err);
-        });
+                fetchWeatherData(lat, lon);
+            });
+        } else {
+            alert("GeoCoding API Error: " + response.statusText);
+        }
+    })
+    .catch(function(err) {
+        console.log(err);
+        alert("Unable to connect to GeoCoding API.");
     });
 };
 
@@ -84,13 +89,22 @@ var fetchWeatherData = function(latitude, longitude) {
         + latitude + "&lon=" + longitude +
         "&units=imperial&appid=758dc488dbd90e57e26ad181eba5db49";
    
-    fetch(weatherApiUrl).then(function(response2) {
-        response2.json().then(function(data) {
+    fetch(weatherApiUrl).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
             console.log(data);
 
             displayCurrentWeather(data);
             displayFiveDayWeather(data);
-        });
+            });
+        
+        } else {
+            alert("OneCall Weather API Error: " + response.statusText);
+        }
+    })
+    .catch(function(err) {
+        console.log(err);
+        alert("Unable to connect to OneCall Weather API.")
     });
 };
 // --------------------------------------------------------------------------END FETCH DATA //
