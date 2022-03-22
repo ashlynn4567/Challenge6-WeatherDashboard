@@ -99,8 +99,13 @@ var fetchWeatherData = function(latitude, longitude) {
 // 4. DISPLAY DATA------------------------------------------------------------------------- //
 var displayCityName = function(cityName) {
     // append city name to headers on page
-    citySearchTerm[0].innerText = cityName;
-    citySearchTerm[1].innerText = cityName;
+    capitolizedCityName = cityName.toLowerCase()
+        .split(" ")
+        .map((s) => 
+        s.charAt(0).toUpperCase() 
+        + s.substring(1)).join(" ");
+    citySearchTerm[0].innerText = capitolizedCityName;
+    citySearchTerm[1].innerText = capitolizedCityName;
     citySearchTerm[0].className = "city-name city-name-style";
     citySearchTerm[1].className = "city-name city-name-style";
 };
@@ -108,6 +113,8 @@ var displayCityName = function(cityName) {
 
 var displayCurrentWeather = function(data) {
     currentForecastParent = document.getElementById("current-forecast");
+    // remove old content (if any)
+    currentForecastParent.innerHTML = "";
     currentForecastParent.setAttribute("class", "card");
     
     //date
@@ -186,7 +193,20 @@ var displayCurrentWeather = function(data) {
 
     // uv index
         var currentUVEl = document.createElement("p");
-        currentUVEl.setAttribute("class", "current-uv");
+        // set colors for uv index
+        if (data.current.uvi < 2.99) {
+            // color green
+            currentUVEl.setAttribute("class", "current-uv uv-low");
+        } else if (data.current.uvi > 3 && data.current.uvi < 5.99) {
+            // color yellow
+            currentUVEl.setAttribute("class", "current-uv uv-moderate");
+        } else if (data.current.uvi > 6 && data.current.uvi < 7.99) {
+            // color orange
+            currentUVEl.setAttribute("class", "current-uv uv-high");
+        } else if (data.current.uvi > 8) {
+            // color red
+            currentUVEl.setAttribute("class", "current-uv uv-very-high");
+        };
         currentUVEl.innerHTML = "UV Index: " + data.current.uvi;
         currentSubParentEl.appendChild(currentUVEl);
 
@@ -197,7 +217,10 @@ var displayCurrentWeather = function(data) {
 var displayFiveDayWeather = function(data) {
     for (i = 0; i < (data.daily.length - 3); i++) {
         var dayParentEl = document.querySelector(".day-" + i);
-        dayParentEl.setAttribute("class", ".day-" + i + " col card");
+        console.log(dayParentEl);
+        // // remove old content (if any)
+        // dayParentEl.innerHTML = "";
+        dayParentEl.setAttribute("class", ".day-" + i + " col forecast-card card");
 
         //date
             // collect date data from api
@@ -213,7 +236,7 @@ var displayFiveDayWeather = function(data) {
 
         daySubParentEl = document.createElement("div");
         daySubParentEl.setAttribute("class", "day-" + i + "-subheader card-body forecast-card-body");
-        
+
         // icon
             // create new element
             var fiveDayIconEl = document.createElement("div");
@@ -277,7 +300,20 @@ var displayFiveDayWeather = function(data) {
 
         // uv index
             var fiveDayUVEl = document.createElement("p");
-            fiveDayUVEl.setAttribute("class", "five-day-uv");
+            // set colors for uv index
+            if (data.daily[i].uvi < 2.99) {
+                // color green
+                fiveDayUVEl.setAttribute("class", "five-day-uv uv-low");
+            } else if (data.daily[i].uvi > 3 && data.daily[i].uvi < 5.99) {
+                // color yellow
+                fiveDayUVEl.setAttribute("class", "five-day-uv uv-moderate");
+            } else if (data.daily[i].uvi > 6 && data.daily[i].uvi < 7.99) {
+                // color orange
+                fiveDayUVEl.setAttribute("class", "five-day-uv uv-high");
+            } else if (data.daily[i].uvi > 8) {
+                // color red
+                fiveDayUVEl.setAttribute("class", "five-day-uv uv-very-high");
+            };
             fiveDayUVEl.innerHTML = "UV Index: " + data.daily[i].uvi;
             daySubParentEl.appendChild(fiveDayUVEl);
 

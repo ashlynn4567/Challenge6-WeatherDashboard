@@ -6,6 +6,10 @@
   --dark: #353535;
   --light: #ffffff;
   --border-radius: 25px;
+  --uv-low: #43873a;
+  --uv-moderate: #d1c845;
+  --uv-high: #c47839;
+  --uv-very-high: #a32c24;
 }
 
 /* ALL STYLING */
@@ -181,6 +185,42 @@ p {
   width: 100px;
   height: 80px;
   align-self: center;
+}
+
+.uv-low {
+  font-size: 0.9rem;
+  background-color: var(--uv-low);
+  padding: 0 10px;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--dark);
+  color: var(--light);
+}
+
+.uv-moderate {
+  font-size: 0.9rem;
+  background-color: var(--uv-moderate);
+  padding: 0 10px;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--dark);
+  color: var(--dark);
+}
+
+.uv-high {
+  font-size: 0.9rem;
+  background-color: var(--uv-high);
+  padding: 0 10px;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--dark);
+  color: var(--light);
+}
+
+.uv-very-high {
+  font-size: 0.9rem;
+  background-color: var(--uv-very-high);
+  padding: 0 10px;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--dark);
+  color: var(--light);
 }
 
 /* FORM */
