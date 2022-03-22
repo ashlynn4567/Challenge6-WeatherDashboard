@@ -115,13 +115,17 @@ p {
   transform: translate(-1px, -1px);
 }
 
+.btn-clear {
+    background-color: var(--secondary);
+  }
+
 .btn-inline {
   display: inline;
 }
 
-/* .list-item {
-
-} */
+.list-item {
+    margin: 1rem 0;
+}
 
 .city-name-style {
   font-size: 1.8rem;
@@ -166,18 +170,18 @@ p {
 }
 
 .card-body {
-  padding: 2.5%;
+  padding: 1rem;
+  font-size: x-small;
+}
+
+.card-body h3 {
+  font-size: large;
 }
 
 .forecast-card {
   flex-wrap: wrap;
   font-size: small;
-  height: 300px;
   width: 200px;
-}
-
-.forecast-card-body {
-  padding: 1rem 2rem;
 }
 
 .icon {

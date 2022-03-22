@@ -10,9 +10,9 @@
 
 
 // STILL NEED:
-// LOCAL STORAGE
-// CATCH AND ERROR HANDLING
-// UV INDEX COLOR CHANGE
+// LOCAL STORAGE STORE MORE THAN ONE HISTORY ITEM
+// CATCH AND ERROR HANDLING SERVER SIDE
+// USE APP MORE THAN 1X
 
 
 // 1. VARIABLES---------------------------------------------------------------------------- //
@@ -29,6 +29,8 @@ var citySearchTerm = document.querySelectorAll(".city-name");
 var formSubmitHandler = function(event) {
     // prevent automatic refresh
     event.preventDefault();
+    // setting the last searched city
+    setLocalStorage();
     
     // get value from form input
     var cityName = cityInputEl.value.trim();
@@ -111,6 +113,21 @@ var displayCityName = function(cityName) {
 };
 
 
+var displayLastSearched = function(cityName) {
+    var recentSearchListParent = document.getElementById("recent-searches");
+    var lastSearchButtonEl = document.createElement("button");
+    lastSearchButtonEl.setAttribute("class", "btn last-searched-button");
+    // capitalize first letter of every word in description
+    capitolizedCityName = cityName.toLowerCase()
+        .split(" ")
+        .map((s) => 
+        s.charAt(0).toUpperCase() 
+        + s.substring(1)).join(" ");
+    lastSearchButtonEl.innerText = capitolizedCityName;
+    recentSearchListParent.appendChild(lastSearchButtonEl);
+};
+
+
 var displayCurrentWeather = function(data) {
     currentForecastParent = document.getElementById("current-forecast");
     // remove old content (if any)
@@ -129,7 +146,7 @@ var displayCurrentWeather = function(data) {
         currentForecastParent.appendChild(currentDateEl);
 
     currentSubParentEl = document.createElement("div");
-    currentSubParentEl.setAttribute("class", "current-subheader card-body forecast-card-body");
+    currentSubParentEl.setAttribute("class", "current-subheader card-body");
 
     // icon
             // create new element
@@ -143,7 +160,7 @@ var displayCurrentWeather = function(data) {
 
     // description
         // create a new element
-        var currentDescription = document.createElement("p");
+        var currentDescription = document.createElement("h3");
         currentDescription.setAttribute("class", "current-description");
         // capitalize first letter of every word in description
         var description = data.current.weather[0].description;
@@ -152,7 +169,7 @@ var displayCurrentWeather = function(data) {
             .map((s) => 
             s.charAt(0).toUpperCase() 
             + s.substring(1)).join(" ");
-        currentDescription.innerHTML = description;
+        currentDescription.innerText = description;
         // append description to page
         currentSubParentEl.appendChild(currentDescription);
 
@@ -160,7 +177,7 @@ var displayCurrentWeather = function(data) {
         // create new element
         var currentTempEl = document.createElement("p");
         currentTempEl.setAttribute("class", "current-temp");
-        currentTempEl.innerHTML = "Temperature: " + data.current.temp + " °F";
+        currentTempEl.innerHTML = "<b>Temperature:</b> " + data.current.temp + " °F";
         //append temp to page
         currentSubParentEl.appendChild(currentTempEl);
 
@@ -168,14 +185,14 @@ var displayCurrentWeather = function(data) {
         // create new element
         var currentFeelsLikeEl = document.createElement("p");
         currentFeelsLikeEl.setAttribute("class", "current-rel-temp");
-        currentFeelsLikeEl.innerHTML = "Feels Like: " + data.current.feels_like + " °F";
+        currentFeelsLikeEl.innerHTML = "<b>Feels Like:</b> " + data.current.feels_like + " °F";
         //append temp to page
         currentSubParentEl.appendChild(currentFeelsLikeEl);
     
     // humidity
         var currentHumidityEl = document.createElement("p");
         currentHumidityEl.setAttribute("class", "current-humidity");
-        currentHumidityEl.innerHTML = "Humidity: " + data.current.humidity + " %";
+        currentHumidityEl.innerHTML = "<b>Humidity:</b> " + data.current.humidity + " %";
         // append humidity to page
         currentSubParentEl.appendChild(currentHumidityEl);
 
@@ -186,9 +203,9 @@ var displayCurrentWeather = function(data) {
         var windDegrees = data.current.wind_deg;
         // convert wind direction degrees to cardinal directions
         var val = Math.floor((windDegrees / 22.5) + 0.5);
-        var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-        var currentWindDegrees = arr[(val % 16)];
-        currentWindEl.innerText = "Wind: " + data.current.wind_speed + " mph " + currentWindDegrees;
+        var arr = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+        var currentWindDegrees = arr[(val % 8)];
+        currentWindEl.innerHTML = "<b>Wind:</b> " + data.current.wind_speed + " mph " + currentWindDegrees;
         currentSubParentEl.appendChild(currentWindEl);
 
     // uv index
@@ -196,18 +213,17 @@ var displayCurrentWeather = function(data) {
         // set colors for uv index
         if (data.current.uvi < 2.99) {
             // color green
-            currentUVEl.setAttribute("class", "current-uv uv-low");
+            currentUVEl.innerHTML = "<b>UV Index:</b> <span class='current-uv uv-low'>" + data.current.uvi + "</span>";
         } else if (data.current.uvi > 3 && data.current.uvi < 5.99) {
             // color yellow
-            currentUVEl.setAttribute("class", "current-uv uv-moderate");
+            currentUVEl.innerHTML = "<b>UV Index:</b> <span class='current-uv uv-moderate'>" + data.current.uvi + "</span>";
         } else if (data.current.uvi > 6 && data.current.uvi < 7.99) {
             // color orange
-            currentUVEl.setAttribute("class", "current-uv uv-high");
+            currentUVEl.innerHTML = "<b>UV Index:</b> <span class='current-uv uv-high'>" + data.current.uvi + "</span>";
         } else if (data.current.uvi > 8) {
             // color red
-            currentUVEl.setAttribute("class", "current-uv uv-very-high");
+            currentUVEl.innerHTML = "<b>UV Index:</b> <span class='current-uv uv-very-high'>" + data.current.uvi + "</span>";
         };
-        currentUVEl.innerHTML = "UV Index: " + data.current.uvi;
         currentSubParentEl.appendChild(currentUVEl);
 
     currentForecastParent.appendChild(currentSubParentEl);
@@ -235,7 +251,7 @@ var displayFiveDayWeather = function(data) {
             dayParentEl.appendChild(fiveDayDateEl);
 
         daySubParentEl = document.createElement("div");
-        daySubParentEl.setAttribute("class", "day-" + i + "-subheader card-body forecast-card-body");
+        daySubParentEl.setAttribute("class", "day-" + i + "-subheader card-body");
 
         // icon
             // create new element
@@ -249,7 +265,7 @@ var displayFiveDayWeather = function(data) {
 
         // description
             // create a new element
-            var fiveDayDescription = document.createElement("p");
+            var fiveDayDescription = document.createElement("h3");
             fiveDayDescription.setAttribute("class", "five-day-description");
             // capitalize first letter of every word in description
             var description = data.daily[i].weather[0].description;
@@ -266,7 +282,7 @@ var displayFiveDayWeather = function(data) {
             // create new element
             var fiveDayTempHigh = document.createElement("p");
             fiveDayTempHigh.setAttribute("class", "five-day-temp-high");
-            fiveDayTempHigh.innerHTML = "High: " + data.daily[i].temp.max + " °F";
+            fiveDayTempHigh.innerHTML = "<b>High:</b> " + data.daily[i].temp.max + " °F";
             //append temp to page
             daySubParentEl.appendChild(fiveDayTempHigh);
 
@@ -274,14 +290,14 @@ var displayFiveDayWeather = function(data) {
             // create new element
             var fiveDayTempLow = document.createElement("p");
             fiveDayTempLow.setAttribute("class", "five-day-temp-low");
-            fiveDayTempLow.innerHTML = "Low: " + data.daily[i].temp.min + " °F";
+            fiveDayTempLow.innerHTML = "<b>Low:</b> " + data.daily[i].temp.min + " °F";
             //append temp to page
             daySubParentEl.appendChild(fiveDayTempLow);
 
         // humidity
             var fiveDayHumidityEl = document.createElement("p");
             fiveDayHumidityEl.setAttribute("class", "five-day-humidity");
-            fiveDayHumidityEl.innerHTML = "Humidity: " + data.daily[i].humidity + " %";
+            fiveDayHumidityEl.innerHTML = "<b>Humidity:</b> " + data.daily[i].humidity + " %";
             // append humidity to page
             daySubParentEl.appendChild(fiveDayHumidityEl);
 
@@ -292,10 +308,10 @@ var displayFiveDayWeather = function(data) {
             var windDegrees = data.daily[i].wind_deg;
             // convert wind direction degrees to cardinal directions
             var val = Math.floor((windDegrees / 22.5) + 0.5);
-            var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-            var fiveDayWindDegrees = arr[(val % 16)];
-            fiveDayWindEl.innerHTML = "Wind: " + data.daily[i].wind_speed 
-                + "<br> mph " + fiveDayWindDegrees;
+            var arr = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+            var fiveDayWindDegrees = arr[(val % 8)];
+            fiveDayWindEl.innerHTML = "<b>Wind:</b> " + data.daily[i].wind_speed 
+                + " mph " + fiveDayWindDegrees;
             daySubParentEl.appendChild(fiveDayWindEl);
 
         // uv index
@@ -303,18 +319,17 @@ var displayFiveDayWeather = function(data) {
             // set colors for uv index
             if (data.daily[i].uvi < 2.99) {
                 // color green
-                fiveDayUVEl.setAttribute("class", "five-day-uv uv-low");
+                fiveDayUVEl.innerHTML = "<b>UV Index:</b> <span class='five-day-uv uv-low'>" + data.daily[i].uvi + "</span>";
             } else if (data.daily[i].uvi > 3 && data.daily[i].uvi < 5.99) {
                 // color yellow
-                fiveDayUVEl.setAttribute("class", "five-day-uv uv-moderate");
+                fiveDayUVEl.innerHTML = "<b>UV Index:</b> <span class='five-day-uv uv-moderate'>" + data.daily[i].uvi + "</span>";
             } else if (data.daily[i].uvi > 6 && data.daily[i].uvi < 7.99) {
                 // color orange
-                fiveDayUVEl.setAttribute("class", "five-day-uv uv-high");
+                fiveDayUVEl.innerHTML = "<b>UV Index:</b> <span class='five-day-uv uv-high'>" + data.daily[i].uvi + "</span>";
             } else if (data.daily[i].uvi > 8) {
                 // color red
-                fiveDayUVEl.setAttribute("class", "five-day-uv uv-very-high");
+                fiveDayUVEl.innerHTML = "<b>UV Index:</b> <span class='five-day-uv uv-very-high'>" + data.daily[i].uvi + "</span>";
             };
-            fiveDayUVEl.innerHTML = "UV Index: " + data.daily[i].uvi;
             daySubParentEl.appendChild(fiveDayUVEl);
 
         dayParentEl.appendChild(daySubParentEl);
@@ -326,11 +341,35 @@ var displayFiveDayWeather = function(data) {
 
 
 // 5. LOCAL STORAGE------------------------------------------------------------------------ //
+// Save last searched zip code to local storage
+function setLocalStorage() {
+    // get the city name and save to localstorage
+    const lastSearch = cityInputEl.value.trim();
+    localStorage.setItem("lastSearch", JSON.stringify(lastSearch));
+
+    // display button for last searched city name
+    loadLastSearched();
+};
+
+// Load last searched zip code
+var loadLastSearched = function () {
+    lastSearch = JSON.parse(localStorage.getItem("lastSearch"));
+
+    // create empty string if there is nothing saved in localStorage
+    if (!lastSearch) {
+        lastSearch = "";
+    
+    } else {
+        //display results for last searched city name
+        displayLastSearched(lastSearch);
+    };
+};
 // -----------------------------------------------------------------------END LOCAL STORAGE //
 
 
 
 
 // ?. FUNCTION CALLS AND EVENT LISTENERS--------------------------------------------------- //
+// loadLastSearched();
 cityFormEl.addEventListener("submit", formSubmitHandler);
 // --------------------------------------------------END FUNCTION CALLS AND EVENT LISTENERS //
