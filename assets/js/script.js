@@ -10,7 +10,7 @@
 
 
 // STILL NEED:
-// STYLING WITH BOOTSTRAP
+// STYLING
 // LOCAL STORAGE
 // CATCH AND ERROR HANDLING
 
@@ -101,6 +101,8 @@ var displayCityName = function(cityName) {
     // append city name to headers on page
     citySearchTerm[0].innerText = cityName;
     citySearchTerm[1].innerText = cityName;
+    citySearchTerm[0].className = "city-name city-name-style";
+    citySearchTerm[1].className = "city-name city-name-style";
 };
 
 
@@ -124,16 +126,24 @@ var displayCurrentWeather = function(data) {
             var currentIconImg = document.createElement("img");
             currentIconEl.setAttribute("class", "current-icon");
             currentIconImg.setAttribute("src", `http://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
+            currentIconImg.setAttribute("class", "icon");
             currentIconEl.appendChild(currentIconImg);
             currentForecastParent.appendChild(currentIconEl);
 
-        // description
-            // create a new element
-            var currentDescription = document.createElement("p");
-            currentDescription.setAttribute("class", "current-description");
-            currentDescription.innerHTML = "Description: " + data.current.weather[0].description;
-            // append description to page
-            currentForecastParent.appendChild(currentDescription);
+    // description
+        // create a new element
+        var currentDescription = document.createElement("p");
+        currentDescription.setAttribute("class", "current-description");
+        // capitalize first letter of every word in description
+        var description = data.current.weather[0].description;
+        description = description.toLowerCase()
+            .split(" ")
+            .map((s) => 
+            s.charAt(0).toUpperCase() 
+            + s.substring(1)).join(" ");
+        currentDescription.innerHTML = description;
+        // append description to page
+        currentForecastParent.appendChild(currentDescription);
 
     // temp
         // create new element
@@ -147,7 +157,7 @@ var displayCurrentWeather = function(data) {
         // create new element
         var currentFeelsLikeEl = document.createElement("p");
         currentFeelsLikeEl.setAttribute("class", "current-rel-temp");
-        currentFeelsLikeEl.innerHTML = "Temperature: " + data.current.feels_like + " °F";
+        currentFeelsLikeEl.innerHTML = "Feels Like: " + data.current.feels_like + " °F";
         //append temp to page
         currentForecastParent.appendChild(currentFeelsLikeEl);
     
@@ -181,6 +191,7 @@ var displayCurrentWeather = function(data) {
 var displayFiveDayWeather = function(data) {
     for (i = 0; i < (data.daily.length - 3); i++) {
         var dayParentEl = document.querySelector(".day-" + i);
+        dayParentEl.setAttribute("class", ".day-" + i + " col card");
 
         //date
             // collect date data from api
@@ -189,50 +200,61 @@ var displayFiveDayWeather = function(data) {
             var forecastDate = (new Date(unixDate * 1000)).toDateString();
             // create new element
             var fiveDayDateEl = document.createElement("p");
-            fiveDayDateEl.setAttribute("class", "five-day-date");
-            fiveDayDateEl.innerHTML = "Date: " + forecastDate;
+            fiveDayDateEl.setAttribute("class", "five-day-date card-header");
+            fiveDayDateEl.innerHTML = forecastDate;
             // append date to page
             dayParentEl.appendChild(fiveDayDateEl);
 
+        daySubParentEl = document.createElement("div");
+        daySubParentEl.setAttribute("class", "day-" + i + "-subheader card-body five-day-card-body");
+        
         // icon
             // create new element
             var fiveDayIconEl = document.createElement("div");
             var fiveDayIconImg = document.createElement("img");
             fiveDayIconEl.setAttribute("class", "five-day-icon");
             fiveDayIconImg.setAttribute("src", `http://openweathermap.org/img/w/${data.daily[i].weather[0].icon}.png`);
+            fiveDayIconImg.setAttribute("class", "icon");
             fiveDayIconEl.appendChild(fiveDayIconImg);
-            dayParentEl.appendChild(fiveDayIconEl);
+            daySubParentEl.appendChild(fiveDayIconEl);
 
         // description
             // create a new element
             var fiveDayDescription = document.createElement("p");
             fiveDayDescription.setAttribute("class", "five-day-description");
-            fiveDayDescription.innerHTML = "Description: " + data.daily[i].weather[0].description;
+            // capitalize first letter of every word in description
+            var description = data.daily[i].weather[0].description;
+            description = description.toLowerCase()
+                .split(" ")
+                .map((s) => 
+                s.charAt(0).toUpperCase() 
+                + s.substring(1)).join(" ");
+            fiveDayDescription.innerHTML = description;
             // append description to page
-            dayParentEl.appendChild(fiveDayDescription);
+            daySubParentEl.appendChild(fiveDayDescription);
 
         // high temp
             // create new element
             var fiveDayTempHigh = document.createElement("p");
             fiveDayTempHigh.setAttribute("class", "five-day-temp-high");
-            fiveDayTempHigh.innerHTML = "High Temperature: " + data.daily[i].temp.max + " °F";
+            fiveDayTempHigh.innerHTML = "High: " + data.daily[i].temp.max + " °F";
             //append temp to page
-            dayParentEl.appendChild(fiveDayTempHigh);
+            daySubParentEl.appendChild(fiveDayTempHigh);
 
         // low temp
             // create new element
             var fiveDayTempLow = document.createElement("p");
             fiveDayTempLow.setAttribute("class", "five-day-temp-low");
-            fiveDayTempLow.innerHTML = "Low Temperature: " + data.daily[i].temp.min + " °F";
+            fiveDayTempLow.innerHTML = "Low: " + data.daily[i].temp.min + " °F";
             //append temp to page
-            dayParentEl.appendChild(fiveDayTempLow);
+            daySubParentEl.appendChild(fiveDayTempLow);
 
         // humidity
             var fiveDayHumidityEl = document.createElement("p");
             fiveDayHumidityEl.setAttribute("class", "five-day-humidity");
             fiveDayHumidityEl.innerHTML = "Humidity: " + data.daily[i].humidity + " %";
             // append humidity to page
-            dayParentEl.appendChild(fiveDayHumidityEl);
+            daySubParentEl.appendChild(fiveDayHumidityEl);
 
         // wind speed and direction
             var fiveDayWindEl = document.createElement("p");
@@ -243,14 +265,17 @@ var displayFiveDayWeather = function(data) {
             var val = Math.floor((windDegrees / 22.5) + 0.5);
             var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
             var fiveDayWindDegrees = arr[(val % 16)];
-            fiveDayWindEl.innerText = "Wind: " + data.daily[i].wind_speed + " mph " + fiveDayWindDegrees;
-            dayParentEl.appendChild(fiveDayWindEl);
+            fiveDayWindEl.innerHTML = "Wind: " + data.daily[i].wind_speed 
+                + "<br> mph " + fiveDayWindDegrees;
+            daySubParentEl.appendChild(fiveDayWindEl);
 
         // uv index
             var fiveDayUVEl = document.createElement("p");
             fiveDayUVEl.setAttribute("class", "five-day-uv");
             fiveDayUVEl.innerHTML = "UV Index: " + data.daily[i].uvi;
-            dayParentEl.appendChild(fiveDayUVEl);
+            daySubParentEl.appendChild(fiveDayUVEl);
+
+        dayParentEl.appendChild(daySubParentEl);
     };
 };
 // ------------------------------------------------------------------------END DISPLAY DATA //

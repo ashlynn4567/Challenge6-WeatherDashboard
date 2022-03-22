@@ -1,11 +1,305 @@
-.background {
+:root {
+  --primary: #284b63;
+  --secondary: #3c6e71;
+  --tertiary: #d9d9d9;
+  --dark: #353535;
+  --light: #ffffff;
+  --border-radius: 25px;
+}
+
+/* ALL STYLING */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  max-height: 100vh;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* MY STYLES */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "droid-serif", serif;
+  color: var(--dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.container {
+  flex: 1 0 auto;
   background-image: url("../images/bg-image.jpg");
   background-size: cover;
-  font-family: "droid-serif", serif;
 }
 
 h1,
 h2,
 h3 {
   font-family: "Montserrat", sans-serif;
+  line-height: 1.25;
+  text-align: center;
+  padding: 1rem;
+}
+
+.hero {
+  padding: 1% 4%;
+  background-color: var(--primary);
+}
+
+.title {
+  font-size: 2.8rem;
+  background-color: var(--secondary);
+  color: var(--light);
+  padding: 0 10px;
+  margin: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--tertiary);
+}
+
+.main {
+  margin: 20px auto;
+  width: 94%;
+  flex-wrap: none;
+}
+
+p {
+  font-size: 1rem;
+}
+
+.btn {
+  font-size: 1.3rem;
+  text-decoration: none;
+  padding: 5px;
+  width: 100%;
+  display: block;
+  margin: 5px 0;
+  border-radius: var(--border-radius);
+  color: var(--light);
+  border: none;
+  outline: none;
+  background-color: var(--primary);
+  box-shadow: 3px 3px var(--dark);
+  transform: translate(-1px, -1px);
+}
+
+.btn-inline {
+  display: inline;
+}
+
+.list-group {
+  padding: 0;
+  list-style: none;
+}
+
+/* .list-item {
+
+} */
+
+.city-name-style {
+  font-size: 1.8rem;
+  background-color: var(--secondary);
+  padding: 0 10px;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--dark);
+  color: var(--light);
+}
+
+/* CARDS */
+
+.card {
+  margin: 1.2rem;
+  border: 3px solid var(--dark);
+  border-radius: var(--border-radius);
+  background-color: var(--tertiary);
+}
+
+.card-header {
+  color: var(--light);
+  background-color: var(--secondary);
+  padding: 3%;
+  border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+
+.card-body {
+  padding: 2.5%;
+}
+
+.five-day-card {
+  flex-wrap: wrap;
+  font-size: small;
+  height: 300px;
+  width: 200px;
+}
+
+.five-day-card-body {
+  padding: 1rem 2rem;
+}
+
+.icon {
+  max-width: 100%;
+  width: 100px;
+  height: 100px;
+  align-self: center;
+}
+
+/* FORM */
+.form-label,
+.form-input,
+.form-text-area {
+  display: block;
+}
+
+.form-label {
+  font-size: 1.1rem;
+  margin: 0 0 0 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 3%;
+  margin: 5px 0;
+  font-size: 1.2 rem;
+  border: 2px solid var(--secondary);
+  border-radius: var(--border-radius);
+}
+
+/* HEIGHT AND WIDTH */
+.min-100-vh {
+  min-height: 100vh;
+}
+
+.min-100-vw {
+  min-width: 100vw;
+}
+
+/* FLEX */
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.justify-flex-start {
+  justify-content: flex-start;
+}
+
+.justify-flex-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 768px) {
+  .col-md-1 {
+    flex: 0 0 calc(100% * 1 / 12 - 2%);
+  }
+
+  .col-md-2 {
+    flex: 0 0 calc(100% * 2 / 12 - 2%);
+  }
+
+  .col-md-3 {
+    flex: 0 0 calc(100% * 3 / 12 - 2%);
+  }
+
+  .col-md-4 {
+    flex: 0 0 calc(100% * 4 / 12 - 2%);
+  }
+
+  .col-md-5 {
+    flex: 0 0 calc(100% * 5 / 12 - 2%);
+  }
+
+  .col-md-6 {
+    flex: 0 0 calc(100% * 6 / 12 - 2%);
+  }
+
+  .col-md-7 {
+    flex: 0 0 calc(100% * 7 / 12 - 2%);
+  }
+
+  .col-md-8 {
+    flex: 0 0 calc(100% * 8 / 12 - 2%);
+  }
+
+  .col-md-9 {
+    flex: 0 0 calc(100% * 9 / 12 - 2%);
+  }
+
+  .col-md-10 {
+    flex: 0 0 calc(100% * 10 / 12 - 2%);
+  }
+
+  .col-md-11 {
+    flex: 0 0 calc(100% * 11 / 12 - 2%);
+  }
+
+  .col-md-12 {
+    flex: 0 0 100%;
+  }
 }

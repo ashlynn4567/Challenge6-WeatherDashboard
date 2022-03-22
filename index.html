@@ -5,14 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Dashboard</title>
-    <!-- Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-      type="text/css"
-    />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,68 +17,58 @@
     <!-- My CSS -->
     <link href="./assets/css/style.css" rel="stylesheet" type="text/css" />
   </head>
-  <body class="background">
-    <div class="container-fluid">
+
+  <body class="flex-col">
+    <div class="container align-center">
       <!-- Header -->
-      <header class="row bg-info">
-        <h1>Weather Dashboard</h1>
+      <header class="hero">
+        <h1 class="title">Weather Dashboard</h1>
       </header>
 
-      <main class="row">
+      <main class="justify-space-around align-center flex-row">
         <!-- Form -->
-        <section class="col-3 bg-secondary rounded m-5">
-          <div class="text-center justify-content-center">
-            <h3>Search for a City</h3>
-            <form id="city-form" class="">
-              <label for="city-input" class="">City Name:</label>
-              <input id="city-input" type="text" name="city-input" class="" />
-              <button type="submit" class="btn btn-info">Submit</button>
+        <section class="col-12 col-md-2">
+          <div class="card form-card text-center">
+            <h3 class="card-header">Search for a City</h3>
+            <form id="city-form" class="card-body">
+              <label for="city-input" class="form-label">City Name:</label>
+              <input
+                id="city-input"
+                type="text"
+                name="city-input"
+                class="form-input text-center"
+              />
+              <button type="submit" class="btn">Submit</button>
             </form>
             <ol id="recent-searches"></ol>
           </div>
         </section>
 
-        <div class="col-7">
+        <div class="col-12 col-md-10">
           <!-- Current Weather -->
-          <section class="row">
+          <section class="card">
             <h2>
-              Displaying current weather conditions for:
+              Displaying current weather for:
               <span class="city-name"></span>
             </h2>
-            <div id="current-forecast"></div>
+            <div id="current-forecast" class="list-group"></div>
           </section>
 
           <!-- 5 Day Forecast -->
-          <section class="row">
-            <h2>5 Day Forecast for: <span class="city-name"></span></h2>
-            <div>
-              <div class="day-0 col"></div>
-              <div class="day-1 col"></div>
-              <div class="day-2 col"></div>
-              <div class="day-3 col"></div>
-              <div class="day-4 col"></div>
+          <section class="card text-center">
+            <h2>5-Day Forecast for: <span class="city-name"></span></h2>
+            <div class="list-group flex-row justify-space-around">
+              <div class="day-0 col-12 col-md-1 five-day-card"></div>
+              <div class="day-1 col-12 col-md-1 five-day-card"></div>
+              <div class="day-2 col-12 col-md-1 five-day-card"></div>
+              <div class="day-3 col-12 col-md-1 five-day-card"></div>
+              <div class="day-4 col-12 col-md-1 five-day-card"></div>
             </div>
           </section>
         </div>
       </main>
-
-      <!-- Footer -->
-      <footer class="row bg-info fixed-bottom">
-        <h3>Weather Dashboard</h3>
-        <!-- <p>
-          Brought to you by the University of Oregon Coding Bootcamp.
-          <br />
-          Made by Ashley Smith
-        </p> -->
-      </footer>
     </div>
 
-    <!-- Bootstrap JS Link-->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
     <!-- My JS -->
     <script src="./assets/js/script.js"></script>
   </body>
