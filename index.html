@@ -27,7 +27,7 @@
 
       <main class="justify-space-around align-center flex-row">
         <!-- Form -->
-        <section class="col-12 col-md-2">
+        <section class="col-12 col-md-3">
           <div class="card form-card text-center">
             <h3 class="card-header">Search for a City</h3>
             <form id="city-form" class="card-body">
@@ -44,25 +44,29 @@
           </div>
         </section>
 
-        <div class="col-12 col-md-10">
+        <div class="col-12 col-md-9">
           <!-- Current Weather -->
-          <section class="card">
-            <h2>
+          <section class="card-holder text-center">
+            <h2 class="card-holder-header">
               Displaying current weather for:
               <span class="city-name"></span>
             </h2>
-            <div id="current-forecast" class="list-group"></div>
+            <div class="flex-row justify-center">
+              <div id="current-forecast"></div>
+            </div>
           </section>
 
           <!-- 5 Day Forecast -->
-          <section class="card text-center">
-            <h2>5-Day Forecast for: <span class="city-name"></span></h2>
-            <div class="list-group flex-row justify-space-around">
-              <div class="day-0 col-12 col-md-1 five-day-card"></div>
-              <div class="day-1 col-12 col-md-1 five-day-card"></div>
-              <div class="day-2 col-12 col-md-1 five-day-card"></div>
-              <div class="day-3 col-12 col-md-1 five-day-card"></div>
-              <div class="day-4 col-12 col-md-1 five-day-card"></div>
+          <section class="card-holder text-center">
+            <h2 class="card-holder-header">
+              5-Day Forecast for: <span class="city-name"></span>
+            </h2>
+            <div class="flex-row justify-space-around">
+              <div class="day-0 col-12 col-md-1 forecast-card"></div>
+              <div class="day-1 col-12 col-md-1 forecast-card"></div>
+              <div class="day-2 col-12 col-md-1 forecast-card"></div>
+              <div class="day-3 col-12 col-md-1 forecast-card"></div>
+              <div class="day-4 col-12 col-md-1 forecast-card"></div>
             </div>
           </section>
         </div>

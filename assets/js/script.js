@@ -10,9 +10,9 @@
 
 
 // STILL NEED:
-// STYLING
 // LOCAL STORAGE
 // CATCH AND ERROR HANDLING
+// UV INDEX COLOR CHANGE
 
 
 // 1. VARIABLES---------------------------------------------------------------------------- //
@@ -108,6 +108,7 @@ var displayCityName = function(cityName) {
 
 var displayCurrentWeather = function(data) {
     currentForecastParent = document.getElementById("current-forecast");
+    currentForecastParent.setAttribute("class", "card");
     
     //date
         // collect date data from api
@@ -116,9 +117,12 @@ var displayCurrentWeather = function(data) {
         var formattedDate = (new Date(unixDate * 1000)).toDateString();
         //create new element
         var currentDateEl = document.createElement("p");
-        currentDateEl.setAttribute("class", "current-date");
+        currentDateEl.setAttribute("class", "current-date card-header");
         currentDateEl.innerHTML = "Date: " + formattedDate;
         currentForecastParent.appendChild(currentDateEl);
+
+    currentSubParentEl = document.createElement("div");
+    currentSubParentEl.setAttribute("class", "current-subheader card-body forecast-card-body");
 
     // icon
             // create new element
@@ -128,7 +132,7 @@ var displayCurrentWeather = function(data) {
             currentIconImg.setAttribute("src", `http://openweathermap.org/img/w/${data.current.weather[0].icon}.png`);
             currentIconImg.setAttribute("class", "icon");
             currentIconEl.appendChild(currentIconImg);
-            currentForecastParent.appendChild(currentIconEl);
+            currentSubParentEl.appendChild(currentIconEl);
 
     // description
         // create a new element
@@ -143,7 +147,7 @@ var displayCurrentWeather = function(data) {
             + s.substring(1)).join(" ");
         currentDescription.innerHTML = description;
         // append description to page
-        currentForecastParent.appendChild(currentDescription);
+        currentSubParentEl.appendChild(currentDescription);
 
     // temp
         // create new element
@@ -151,7 +155,7 @@ var displayCurrentWeather = function(data) {
         currentTempEl.setAttribute("class", "current-temp");
         currentTempEl.innerHTML = "Temperature: " + data.current.temp + " °F";
         //append temp to page
-        currentForecastParent.appendChild(currentTempEl);
+        currentSubParentEl.appendChild(currentTempEl);
 
     // relative temp
         // create new element
@@ -159,14 +163,14 @@ var displayCurrentWeather = function(data) {
         currentFeelsLikeEl.setAttribute("class", "current-rel-temp");
         currentFeelsLikeEl.innerHTML = "Feels Like: " + data.current.feels_like + " °F";
         //append temp to page
-        currentForecastParent.appendChild(currentFeelsLikeEl);
+        currentSubParentEl.appendChild(currentFeelsLikeEl);
     
     // humidity
         var currentHumidityEl = document.createElement("p");
         currentHumidityEl.setAttribute("class", "current-humidity");
         currentHumidityEl.innerHTML = "Humidity: " + data.current.humidity + " %";
         // append humidity to page
-        currentForecastParent.appendChild(currentHumidityEl);
+        currentSubParentEl.appendChild(currentHumidityEl);
 
     // wind direction and speed
         var currentWindEl = document.createElement("p");
@@ -178,13 +182,15 @@ var displayCurrentWeather = function(data) {
         var arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
         var currentWindDegrees = arr[(val % 16)];
         currentWindEl.innerText = "Wind: " + data.current.wind_speed + " mph " + currentWindDegrees;
-        currentForecastParent.appendChild(currentWindEl);
+        currentSubParentEl.appendChild(currentWindEl);
 
     // uv index
         var currentUVEl = document.createElement("p");
         currentUVEl.setAttribute("class", "current-uv");
         currentUVEl.innerHTML = "UV Index: " + data.current.uvi;
-        currentForecastParent.appendChild(currentUVEl);
+        currentSubParentEl.appendChild(currentUVEl);
+
+    currentForecastParent.appendChild(currentSubParentEl);
 };
 
 
@@ -206,7 +212,7 @@ var displayFiveDayWeather = function(data) {
             dayParentEl.appendChild(fiveDayDateEl);
 
         daySubParentEl = document.createElement("div");
-        daySubParentEl.setAttribute("class", "day-" + i + "-subheader card-body five-day-card-body");
+        daySubParentEl.setAttribute("class", "day-" + i + "-subheader card-body forecast-card-body");
         
         // icon
             // create new element
