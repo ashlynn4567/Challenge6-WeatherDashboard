@@ -11,7 +11,7 @@
 
 // STILL NEED:
 // LOCAL STORAGE STORE MORE THAN ONE HISTORY ITEM
-// USE APP MORE THAN 1X
+// USE APP MORE THAN 1X (FIVE DAY FORECAST)
 
 
 // 1. VARIABLES---------------------------------------------------------------------------- //
@@ -19,6 +19,9 @@
 var cityFormEl = document.getElementById("city-form");
 var cityInputEl = document.getElementById("city-input");
 var citySearchTerm = document.querySelectorAll(".city-name");
+var clearBtnEl = document.getElementById("clear-button");
+var historyParentEl = document.getElementById("recent-searches");
+// var counter = 0;
 // ---------------------------------------------------------------------------END VARIABLES //
 
 
@@ -378,12 +381,26 @@ var loadLastSearched = function () {
         displayLastSearched(lastSearch);
     };
 };
+
+// clear recent city search history
+var clearHistory = function() {
+    window.localStorage.removeItem("lastSearch");
+    window.location.reload();
+};
+
+// reload recent search on button click
+var reSearchRecent = function(event) {
+    var recentSearch = event.target.textContent;
+    fetchCityCoordinates(recentSearch);
+};
 // -----------------------------------------------------------------------END LOCAL STORAGE //
 
 
 
 
 // ?. FUNCTION CALLS AND EVENT LISTENERS--------------------------------------------------- //
-// loadLastSearched();
+loadLastSearched();
 cityFormEl.addEventListener("submit", formSubmitHandler);
+historyParentEl.addEventListener("click", reSearchRecent);
+clearBtnEl.addEventListener("click", clearHistory);
 // --------------------------------------------------END FUNCTION CALLS AND EVENT LISTENERS //
