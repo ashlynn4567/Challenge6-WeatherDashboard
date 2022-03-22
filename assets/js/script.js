@@ -118,7 +118,7 @@ var displayCurrentWeather = function(data) {
         //create new element
         var currentDateEl = document.createElement("p");
         currentDateEl.setAttribute("class", "current-date card-header");
-        currentDateEl.innerHTML = "Date: " + formattedDate;
+        currentDateEl.innerHTML = formattedDate;
         currentForecastParent.appendChild(currentDateEl);
 
     currentSubParentEl = document.createElement("div");
