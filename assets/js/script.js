@@ -9,9 +9,6 @@
 // ---------------------------------------------------------------------------------------- //
 
 
-// STILL NEED:
-// LOCAL STORAGE STORE MORE THAN ONE HISTORY ITEM
-// USE APP MORE THAN 1X (FIVE DAY FORECAST)
 
 
 // 1. VARIABLES---------------------------------------------------------------------------- //
@@ -21,7 +18,8 @@ var cityInputEl = document.getElementById("city-input");
 var citySearchTerm = document.querySelectorAll(".city-name");
 var clearBtnEl = document.getElementById("clear-button");
 var historyParentEl = document.getElementById("recent-searches");
-// var counter = 0;
+var localStorageCityName = JSON.parse(localStorage.getItem("lastSearch")) || [];
+
 // ---------------------------------------------------------------------------END VARIABLES //
 
 
@@ -39,9 +37,9 @@ var formSubmitHandler = function(event) {
 
     // if user entered a city name
     if (cityName) {
-        fetchCityCoordinates(cityName);
-        // show city the user searched for in headers
-        displayCityName(cityName);
+        // fetchCityCoordinates(cityName);
+        // // show city the user searched for in headers
+        // displayCityName(cityName);
 
         // reset form to blank input box
         cityInputEl.value = ""
@@ -73,6 +71,7 @@ var fetchCityCoordinates = function(city) {
                 var lon = data[0].lon
 
                 fetchWeatherData(lat, lon);
+                displayCityName(city);
             });
         } else {
             alert("GeoCoding API Error: " + response.statusText);
@@ -145,7 +144,7 @@ var displayLastSearched = function(cityName) {
 };
 
 
-var displayCurrentWeather = function(data) {
+var displayCurrentWeather = function(data) {    
     currentForecastParent = document.getElementById("current-forecast");
     // remove old content (if any)
     currentForecastParent.innerHTML = "";
@@ -252,8 +251,8 @@ var displayFiveDayWeather = function(data) {
         var dayParentEl = document.querySelector(".day-" + i);
         console.log(dayParentEl);
         // // remove old content (if any)
-        // dayParentEl.innerHTML = "";
-        dayParentEl.setAttribute("class", ".day-" + i + " col forecast-card card");
+        dayParentEl.innerHTML = "";
+        dayParentEl.setAttribute("class", "day-" + i + " col forecast-card card");
 
         //date
             // collect date data from api
@@ -362,23 +361,22 @@ var displayFiveDayWeather = function(data) {
 function setLocalStorage() {
     // get the city name and save to localstorage
     const lastSearch = cityInputEl.value.trim();
-    localStorage.setItem("lastSearch", JSON.stringify(lastSearch));
+    localStorageCityName.push(lastSearch);
+    localStorage.setItem("lastSearch", JSON.stringify(localStorageCityName));
 
     // display button for last searched city name
-    loadLastSearched();
+    displayLastSearched(lastSearch);
 };
 
 // Load last searched zip code
 var loadLastSearched = function () {
-    lastSearch = JSON.parse(localStorage.getItem("lastSearch"));
+    lastSearch = JSON.parse(localStorage.getItem("lastSearch")) || [];
 
     // create empty string if there is nothing saved in localStorage
-    if (!lastSearch) {
-        lastSearch = "";
-    
-    } else {
-        //display results for last searched city name
-        displayLastSearched(lastSearch);
+    if (lastSearch.length !== 0) {
+        for (i = 0; i < lastSearch.length; i++) {
+            displayLastSearched(lastSearch[i]);
+        };
     };
 };
 
