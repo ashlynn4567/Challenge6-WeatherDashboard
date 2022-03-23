@@ -37,9 +37,9 @@ var formSubmitHandler = function(event) {
 
     // if user entered a city name
     if (cityName) {
-        // fetchCityCoordinates(cityName);
-        // // show city the user searched for in headers
-        // displayCityName(cityName);
+        fetchCityCoordinates(cityName);
+        // show city the user searched for in headers
+        displayCityName(cityName);
 
         // reset form to blank input box
         cityInputEl.value = ""
