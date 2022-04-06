@@ -58,7 +58,7 @@ var formSubmitHandler = function(event) {
 // fetch city name
 var fetchCityCoordinates = function(city) {
     var geoApiUrl = 
-        "http://api.openweathermap.org/geo/1.0/direct?q=" 
+        "https://api.openweathermap.org/geo/1.0/direct?q=" 
         + city + 
         "&appid=758dc488dbd90e57e26ad181eba5db49";
     
