@@ -25,7 +25,7 @@ The user can also see their search history displayed on the left side of the scr
 
 ## Deployed Site
 
-<a href="https://ashlynn4567.github.io/Challenge6-WeatherDashboard/">Click here to track the weather!</a>
+<a href="https://ashlynn4567.github.io/Weather-Dashboard/">Click here to track the weather!</a>
 
 ## Suggestion Box
 
