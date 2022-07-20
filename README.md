@@ -19,7 +19,7 @@ You can see for yourself! This weather application will generate weather for wha
 
 ## Deployed Site
 
-Follow [this link](https://ashlynn4567.github.io/Weather-Dashboard/) to view and use our site!
+Follow [this link](https://ashlynn4567.github.io/Weather-Dashboard/) to view and use my site!
 
 ## Features
 
@@ -46,6 +46,7 @@ The user can also see their search history displayed on the left side of the scr
 - HTML
 - CSS
 - JavaScript
+- [Open Weather API](https://openweathermap.org/api)
 
 ## Future Development
 
@@ -55,7 +56,7 @@ In the future, I would like to add the following improvements:
 - I would like to add the ability to delete one search history item at a time rather than deleting all of them.
 - It would be awesome if I could incorporate a radar to display on the page for current weather conditions.
 
-I'm always interested in refactoring code to improve it's functionality. If you would like to suggest your own improvements, you can reach our development team at the links below.
+I'm always interested in refactoring code to improve it's functionality. If you would like to suggest your own improvements, you can reach me at the links below.
 
 - <a href="mailto:ashlynn4567@gmail.com">Email</a>
 - <a href="https://github.com/ashlynn4567">GitHub</a>
