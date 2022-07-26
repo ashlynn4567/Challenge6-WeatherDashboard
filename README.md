@@ -17,6 +17,8 @@
 
 You can see for yourself! This weather application will generate weather for whatever city the user inputs in the search bar using the Open Weather API. Simply enter a city name, then current and future weather conditions for that city will display on the page! This page also persistently preserves recent city searches in the sidebar due to localStorage implentation.
 
+Weather Dashboard is a weather application that uses server-side APIs to allow a user to search for live weather updates, including current and future weather conditions, for multiple cities.
+
 ## Deployed Site
 
 Follow [this link](https://ashlynn4567.github.io/Weather-Dashboard/) to view and use my site!
